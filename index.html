@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marzuq Imtiaz | Professional Resume</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#16a34a',
+                            600: '#15803d',
+                            700: '#166534',
+                            800: '#14532d',
+                            900: '#14532d',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style Sheet for print-optimization and minor animations -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 1);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.5);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 116, 139, 0.7);
+        }
+        /* Printable Resume Optimization */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: white !important;
+                color: black !important;
+            }
+            .print-full-width {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .print-grid {
+                display: block !important;
+            }
+            .print-col-1, .print-col-2 {
+                width: 100% !important;
+                display: block !important;
+            }
+            .print-border-less {
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+            }
+            .print-break-inside-avoid {
+                page-break-inside: avoid !important;
+            }
+            /* Reset dark mode styles if user triggers printing while in dark mode */
+            .dark {
+                background-color: white !important;
+                color: black !important;
+            }
+            .dark .bg-slate-900, .dark .bg-slate-800, .dark .bg-slate-950 {
+                background-color: white !important;
+                color: black !important;
+            }
+            .dark .text-white, .dark .text-slate-300, .dark .text-slate-400 {
+                color: #1e293b !important;
+            }
+            .dark .border-slate-700 {
+                border-color: #e2e8f0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen relative flex flex-col justify-between">
+
+    <!-- Custom interactive notification toast -->
+    <div id="toast" class="no-print fixed bottom-6 right-6 z-50 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300 ease-out bg-slate-900 dark:bg-slate-800 text-white px-5 py-3 rounded-xl shadow-2xl border border-slate-700 dark:border-slate-600 flex items-center space-x-3">
+        <span class="text-primary-500 text-lg"><i class="fas fa-check-circle"></i></span>
+        <span id="toast-message" class="text-sm font-medium">Text copied successfully!</span>
+    </div>
+
+    <!-- Interactive Header with quick actions -->
+    <header class="no-print w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-3 sticky top-0 z-40 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95 transition-colors">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <!-- Left Header -->
+            <div class="flex items-center space-x-2">
+                <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase">Interactive Digital Resume</span>
+            </div>
+            
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-3">
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-500" aria-label="Toggle dark mode">
+                    <i id="theme-icon" class="fas fa-moon text-base"></i>
+                </button>
+                <!-- Print/Download Button -->
+                <button onclick="window.print()" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-green-600 text-white font-medium text-sm rounded-xl hover:from-emerald-500 hover:to-green-500 shadow-md hover:shadow-lg hover:scale-[1.02] transition-all flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <i class="fas fa-print"></i>
+                    <span>Print / Save PDF</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Resume Container -->
+    <main class="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-grow print-full-width">
+        <!-- Hero Header Card -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl overflow-hidden border border-slate-200/60 dark:border-slate-800/60 mb-8 transition-colors duration-300 print-border-less">
+            <div class="p-6 sm:p-10 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-10">
+                <!-- Avatar with Error Fallback & Glowing Border -->
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200 no-print"></div>
+                    <div class="relative w-36 h-36 sm:w-44 sm:h-44 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center border-4 border-white dark:border-slate-900 shadow-md">
+                        <img 
+                            id="profile-img" 
+                            src="https://raw.githubusercontent.com/marzuq-imtiaz/marzuq-resume/refs/heads/main/marzuq.jpg" 
+                            alt="Marzuq Imtiaz" 
+                            class="w-full h-full object-cover transition duration-500 hover:scale-105"
+                            onerror="handleImageError()"
+                        >
+                        <!-- Fallback visual if profile image fails -->
+                        <div id="image-fallback" class="hidden flex-col items-center justify-center h-full w-full bg-gradient-to-br from-emerald-500 to-green-600 text-white text-4xl font-bold tracking-wider">
+                            MI
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio & Title -->
+                <div class="flex-grow text-center md:text-left">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-medium text-xs mb-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2"></span>
+                        Available for New Opportunities
+                    </div>
+                    <h1 class="text-3xl sm:text-4.5xl font-extrabold text-slate-900 dark:text-white tracking-tight">Marzuq Imtiaz</h1>
+                    <p class="text-lg font-semibold text-emerald-600 dark:text-emerald-400 mt-1">Aspiring A-Level Student | Operations & Client Communication</p>
+                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2 font-medium">Creative Problem Solver | Leads & Operations Executive</p>
+                    
+                    <!-- Quick Contact Badges for desktop & mobile (Click to copy actions) -->
+                    <div class="mt-6 flex flex-wrap justify-center md:justify-start gap-3 text-sm">
+                        <!-- Location (Badge) -->
+                        <div class="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-700/60">
+                            <i class="fas fa-map-marker-alt text-emerald-500"></i>
+                            <span>Karachi, Pakistan</span>
+                        </div>
+                        
+                        <!-- Phone with Interactive copy -->
+                        <button onclick="copyToClipboard('03212604618', 'Phone number copied to clipboard!')" class="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-700/60 transition group cursor-pointer focus:outline-none" title="Click to copy phone number">
+                            <i class="fas fa-phone text-emerald-500 group-hover:scale-110 transition"></i>
+                            <span class="font-medium">0321 260 4618</span>
+                            <i class="far fa-copy text-xs text-slate-400 opacity-0 group-hover:opacity-100 transition no-print"></i>
+                        </button>
+                        
+                        <!-- Email with Interactive copy -->
+                        <button onclick="copyToClipboard('marzuq.imtiaz09@gmail.com', 'Email address copied to clipboard!')" class="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-700/60 transition group cursor-pointer focus:outline-none" title="Click to copy email">
+                            <i class="fas fa-envelope text-emerald-500 group-hover:scale-110 transition"></i>
+                            <span class="font-medium">marzuq.imtiaz09@gmail.com</span>
+                            <i class="far fa-copy text-xs text-slate-400 opacity-0 group-hover:opacity-100 transition no-print"></i>
+                        </button>
+
+                        <!-- LinkedIn Direct Link -->
+                        <a href="https://www.linkedin.com/in/marzuq-imtiaz-294a06408/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-700/60 transition group" title="Visit LinkedIn Profile">
+                            <i class="fab fa-linkedin text-emerald-500 group-hover:scale-110 transition"></i>
+                            <span class="font-medium">LinkedIn Profile</span>
+                            <i class="fas fa-external-link-alt text-[10px] text-slate-400"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two Column Responsive Layout Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 print-grid">
+            
+            <!-- LEFT COLUMN (Sidebar info: Profile Summary, Languages, Strengths, References) -->
+            <div class="lg:col-span-1 space-y-8 print-col-1">
+                
+                <!-- Summary block -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300 print-border-less">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center">
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 mr-2.5">
+                            <i class="fas fa-user-tie text-sm"></i>
+                        </span>
+                        About Me
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed text-justify">
+                        Motivated and detail-oriented individual who has completed O Levels and is preparing to pursue A Levels. Experienced in operations and lead management through work at Creative Tugs. Skilled in client communication, creating mock-up pages, and using Canva for basic design tasks. Confident, optimistic, and eager to contribute effectively in professional environments while continuously learning and developing new skills.
+                    </p>
+                </div>
+
+                <!-- Personal Strengths -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300 print-border-less">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-5 flex items-center">
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 mr-2.5">
+                            <i class="fas fa-star text-sm"></i>
+                        </span>
+                        Personal Strengths
+                    </h2>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-600 transition duration-300 cursor-default">Confident & Self-motivated</span>
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-600 transition duration-300 cursor-default">Optimistic Attitude</span>
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-600 transition duration-300 cursor-default">Responsible & Dependable</span>
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-600 transition duration-300 cursor-default">Strong Work Ethic</span>
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-600 transition duration-300 cursor-default">Independent Player</span>
+                        <span class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-600 transition duration-300 cursor-default">Team Collaborative</span>
+                    </div>
+                </div>
+
+                <!-- Languages section with visualization meters -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300 print-border-less">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-5 flex items-center">
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 mr-2.5">
+                            <i class="fas fa-language text-sm"></i>
+                        </span>
+                        Languages
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- English -->
+                        <div>
+                            <div class="flex justify-between items-center text-sm mb-1.5">
+                                <span class="font-semibold text-slate-700 dark:text-slate-300">English</span>
+                                <span class="text-xs text-slate-500 dark:text-slate-400">Professional/Bilingual</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                                <div class="bg-gradient-to-r from-emerald-500 to-green-600 h-full rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <!-- Urdu -->
+                        <div>
+                            <div class="flex justify-between items-center text-sm mb-1.5">
+                                <span class="font-semibold text-slate-700 dark:text-slate-300">Urdu</span>
+                                <span class="text-xs text-slate-500 dark:text-slate-400">Native Proficiency</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                                <div class="bg-gradient-to-r from-emerald-500 to-green-600 h-full rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- References Block -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300 print-border-less print-break-inside-avoid">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center">
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 mr-2.5">
+                            <i class="fas fa-info-circle text-sm"></i>
+                        </span>
+                        References
+                    </h2>
+                    <div class="flex items-center space-x-3 text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800/80">
+                        <i class="fas fa-check-double text-emerald-500 text-lg"></i>
+                        <p class="text-sm font-medium">Available upon request.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN (Experience, Skills Portfolio, Education) -->
+            <div class="lg:col-span-2 space-y-8 print-col-2">
+                
+                <!-- Work Experience Timeline -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300 print-border-less">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 mr-2.5">
+                            <i class="fas fa-briefcase text-sm"></i>
+                        </span>
+                        Work Experience
+                    </h2>
+
+                    <!-- Timeline Item -->
+                    <div class="relative pl-6 sm:pl-8 border-l-2 border-slate-200 dark:border-slate-800 last:border-0 pb-1">
+                        <!-- Bullet dot -->
+                        <div class="absolute -left-[9px] top-1.5 w-4.5 h-4.5 rounded-full bg-emerald-500 border-4 border-white dark:border-slate-900 shadow-md"></div>
+                        
+                        <!-- Details -->
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-1">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-950 dark:text-white">Leads & Operations Executive</h3>
+                                <p class="text-emerald-600 dark:text-emerald-400 font-semibold text-sm">Creative Tugs</p>
+                            </div>
+                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200/50 dark:border-slate-700/50 shrink-0 w-fit">
+                                Lead Management & Ops
+                            </span>
+                        </div>
+                        
+                        <!-- Responsibilities list -->
+                        <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2.5 mt-1 text-xs"><i class="fas fa-chevron-right"></i></span>
+                                <span>Managed end-to-end <strong>lead generation pipeline</strong> and operations support activities to fuel business development.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2.5 mt-1 text-xs"><i class="fas fa-chevron-right"></i></span>
+                                <span>Communicated professionally and proactively with clients to sustain positive relations and retain accounts.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2.5 mt-1 text-xs"><i class="fas fa-chevron-right"></i></span>
+                                <span>Assisted in coordinating daily workflows, ensuring team synchronization and task alignment.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2.5 mt-1 text-xs"><i class="fas fa-chevron-right"></i></span>
+                                <span>Created <strong>interactive mock-up pages</strong> and assisted team with basic web layout/graphic designs.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2.5 mt-1 text-xs"><i class="fas fa-chevron-right"></i></span>
+                                <span>Collaborated closely with cross-functional teams to secure seamless project lifecycles and timely delivery.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2.5 mt-1 text-xs"><i class="fas fa-chevron-right"></i></span>
+                                <span>Pioneered consistent follow-ups on warm leads to secure conversion opportunities.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Dynamic Filterable Skills Section -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300 print-border-less print-break-inside-avoid">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
+                            <span class="inline-flex justify-center items-center w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 mr-2.5">
+                                <i class="fas fa-tools text-sm"></i>
+                            </span>
+                            Professional Skills Profile
+                        </h2>
+                        <!-- Skills Categories (Filter Tabs) -->
+                        <div class="no-print flex flex-wrap gap-1 bg-slate-50 dark:bg-slate-800 p-1 rounded-xl w-fit self-start sm:self-auto">
+                            <button onclick="filterSkills('all')" id="tab-all" class="skill-tab px-3 py-1.5 text-xs font-semibold rounded-lg bg-white dark:bg-slate-900 text-emerald-600 dark:text-white shadow-sm transition">
+                                All
+                            </button>
+                            <button onclick="filterSkills('comm')" id="tab-comm" class="skill-tab px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+                                Communication
+                            </button>
+                            <button onclick="filterSkills('design')" id="tab-design" class="skill-tab px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+                                Design/Digital
+                            </button>
+                            <button onclick="filterSkills('professional')" id="tab-professional" class="skill-tab px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+                                Professional
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filterable Grid -->
+                    <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <!-- Communication & Client Relations -->
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="comm">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-comments"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Client Communication</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Exceptional written & spoken English/Urdu business communication.</p>
+                        </div>
+
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="comm">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-headset"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Customer Service</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Resolving issues with speed, empathy, and absolute client satisfaction.</p>
+                        </div>
+
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="comm">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-handshake"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Relationship Management</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Fostering active client confidence and retention over extended terms.</p>
+                        </div>
+
+                        <!-- Design & Digital Skills -->
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="design">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-palette"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Canva (Basic to Intermediate)</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Custom visuals creation, client proposals styling, and banners generation.</p>
+                        </div>
+
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="design">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-laptop-code"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Mock-up Page Creation</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Planning visual frameworks and prototype interface blueprints for websites.</p>
+                        </div>
+
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="design">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-file-powerpoint"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Content Presentation</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Translating complex ideas into organized, dynamic pitch presentations.</p>
+                        </div>
+
+                        <!-- Professional Skills -->
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="professional">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-clock"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Time & Task Management</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Optimizing workflows to meet strict operational project deadlines.</p>
+                        </div>
+
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="professional">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-search"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Attention to Detail</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ensuring immaculate proofreading, formatting, and structural checks.</p>
+                        </div>
+
+                        <div class="skill-item bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60 transition duration-300" data-category="professional">
+                            <span class="text-emerald-500 text-lg mb-2 inline-block"><i class="fas fa-brain"></i></span>
+                            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">Adaptive Problem Solving</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Fast situational analysis and resolution execution in fast-paced environments.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Education Block -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300 print-border-less print-break-inside-avoid">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="inline-flex justify-center items-center w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-500 mr-2.5">
+                            <i class="fas fa-graduation-cap text-sm"></i>
+                        </span>
+                        Education Timeline
+                    </h2>
+
+                    <div class="space-y-6 relative border-l-2 border-slate-150 dark:border-slate-800 pl-6 sm:pl-8 ml-3">
+                        <!-- A-Levels (Upcoming) -->
+                        <div class="relative">
+                            <!-- Bullet -->
+                            <div class="absolute -left-[33px] sm:-left-[41px] top-1.5 w-4 h-4 rounded-full bg-slate-300 dark:bg-slate-700 border-4 border-white dark:border-slate-900 shadow-sm"></div>
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
+                                <h3 class="text-base font-bold text-slate-850 dark:text-white flex items-center">
+                                    A Levels
+                                    <span class="ml-2 px-2 py-0.5 text-[10px] bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded font-semibold uppercase tracking-wider">Upcoming</span>
+                                </h3>
+                                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Planned / Upcoming</span>
+                            </div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Pursuing advanced secondary credentials focusing on high-level pre-university disciplines.</p>
+                        </div>
+
+                        <!-- O-Levels (Completed) -->
+                        <div class="relative">
+                            <!-- Bullet -->
+                            <div class="absolute -left-[33px] sm:-left-[41px] top-1.5 w-4 h-4 rounded-full bg-emerald-500 border-4 border-white dark:border-slate-900 shadow-sm"></div>
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-1">
+                                <h3 class="text-base font-bold text-slate-850 dark:text-white flex items-center">
+                                    O Levels
+                                    <span class="ml-2 px-2 py-0.5 text-[10px] bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 rounded font-semibold uppercase tracking-wider">Completed</span>
+                                </h3>
+                                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Completed Credentials</span>
+                            </div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Established solid academic foundation in crucial analytic, language, and core science disciplines.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Interactive Footer -->
+    <footer class="w-full bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:justify-between items-center gap-4">
+            <div>
+                <p>&copy; 2026 Marzuq Imtiaz. Designed for Professional Excellence.</p>
+            </div>
+            <div class="flex items-center space-x-4 no-print">
+                <button onclick="window.print()" class="hover:text-emerald-500 transition font-medium"><i class="fas fa-file-pdf mr-1"></i>Export to PDF</button>
+                <span class="text-slate-300">|</span>
+                <span class="text-slate-400 italic">Optimized for Print</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Set Theme preference on load
+        window.onload = function() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                updateThemeIcon(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeIcon(false);
+            }
+        }
+
+        // Handle Image Fallback in case of raw git fetch error
+        function handleImageError() {
+            const img = document.getElementById('profile-img');
+            const fallback = document.getElementById('image-fallback');
+            if (img) img.style.display = 'none';
+            if (fallback) fallback.classList.remove('hidden');
+            if (fallback) fallback.classList.add('flex');
+        }
+
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            updateThemeIcon(isDark);
+            showToast(isDark ? "Switched to Premium Dark Mode!" : "Switched to Elegant Light Mode!");
+        }
+
+        function updateThemeIcon(isDark) {
+            const icon = document.getElementById('theme-icon');
+            if (icon) {
+                if (isDark) {
+                    icon.className = 'fas fa-sun text-base text-amber-400';
+                } else {
+                    icon.className = 'fas fa-moon text-base';
+                }
+            }
+        }
+
+        // Click-To-Copy Clipboard Handler
+        function copyToClipboard(text, successMessage) {
+            // Using recommended direct text assignment method
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            showToast(successMessage);
+        }
+
+        // Dynamic notification toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            if (toast && toastMessage) {
+                toastMessage.innerText = message;
+                toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                toast.classList.add('opacity-100', 'translate-y-0');
+                
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                    toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                }, 3000);
+            }
+        }
+
+        // Skills Filter Logic
+        function filterSkills(category) {
+            // Reset active tabs
+            const tabs = document.querySelectorAll('.skill-tab');
+            tabs.forEach(tab => {
+                tab.className = 'skill-tab px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+            });
+
+            // Set current active tab style
+            const activeTab = document.getElementById('tab-' + category);
+            if (activeTab) {
+                activeTab.className = 'skill-tab px-3 py-1.5 text-xs font-semibold rounded-lg bg-white dark:bg-slate-900 text-emerald-600 dark:text-white shadow-sm transition';
+            }
+
+            // Show/Hide Grid elements
+            const items = document.querySelectorAll('.skill-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.classList.remove('hidden', 'scale-95', 'opacity-0');
+                    item.classList.add('block', 'scale-100', 'opacity-100');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
